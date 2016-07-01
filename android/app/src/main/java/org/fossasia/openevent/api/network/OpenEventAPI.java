@@ -1,12 +1,12 @@
 package org.fossasia.openevent.api.network;
 
 import org.fossasia.openevent.api.protocol.EventDatesResponseList;
-import org.fossasia.openevent.api.protocol.EventResponseList;
 import org.fossasia.openevent.api.protocol.MicrolocationResponseList;
 import org.fossasia.openevent.api.protocol.SessionResponseList;
 import org.fossasia.openevent.api.protocol.SponsorResponseList;
 import org.fossasia.openevent.api.protocol.TrackResponseList;
 import org.fossasia.openevent.api.protocol.VersionResponseList;
+import org.fossasia.openevent.data.Event;
 import org.fossasia.openevent.data.Speaker;
 
 import retrofit2.Call;
@@ -29,8 +29,8 @@ public interface OpenEventAPI {
     Call<SessionResponseList> getSessions(@Path("id") int id);
 
     //TODO:Correct event api url to server's
-    @GET("event/event")
-    Call<EventResponseList> getEvents();
+    @GET("event.json")
+    Call<Event> getEvents();
 
     @GET("event/{id}/microlocations")
     Call<MicrolocationResponseList> getMicrolocations(@Path("id") int id);

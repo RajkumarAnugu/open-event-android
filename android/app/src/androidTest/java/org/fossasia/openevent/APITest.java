@@ -4,11 +4,11 @@ import android.test.AndroidTestCase;
 
 import org.fossasia.openevent.api.APIClient;
 import org.fossasia.openevent.api.Urls;
-import org.fossasia.openevent.api.protocol.EventResponseList;
 import org.fossasia.openevent.api.protocol.MicrolocationResponseList;
 import org.fossasia.openevent.api.protocol.SessionResponseList;
 import org.fossasia.openevent.api.protocol.SponsorResponseList;
 import org.fossasia.openevent.api.protocol.TrackResponseList;
+import org.fossasia.openevent.data.Event;
 import org.fossasia.openevent.data.Speaker;
 
 import java.util.concurrent.CountDownLatch;
@@ -79,12 +79,12 @@ public class APITest extends AndroidTestCase {
     public void testEventAPIResponse() throws Exception {
         APIClient client = new APIClient();
         final CountDownLatch latch = new CountDownLatch(1);
-        client.getOpenEventAPI().getEvents().enqueue(new Callback<EventResponseList>() {
+        client.getOpenEventAPI().getEvents().enqueue(new Callback<Event>() {
             @Override
-            public void onResponse(Call<EventResponseList> call, Response<EventResponseList> response) {
+            public void onResponse(Call<Event> call, Response<Event> response) {
                 if (response.isSuccessful()) {
-                    assertNotNull(response.body().event);
-                    assertTrue(response.body().event.size() > 0);
+                    assertNotNull(response.body());
+                    assertTrue(response.body()!=null);
                     latch.countDown();
                 } else {
                     fail("API Request Failed");
@@ -93,7 +93,7 @@ public class APITest extends AndroidTestCase {
             }
 
             @Override
-            public void onFailure(Call<EventResponseList> call, Throwable t) {
+            public void onFailure(Call<Event> call, Throwable t) {
                 fail("API Request Failed");
                 latch.countDown();
             }
